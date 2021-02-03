@@ -1,14 +1,19 @@
-export function formatDate(timestamp) {
+export function formatDate(timestamp, launchpadId) {
+  const lunchapadTimeZoneName = getTimeZoneNameFromLunchSiteId(launchpadId);
+
   return new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: `${lunchapadTimeZoneName}`,
   }).format(new Date(timestamp));
 }
 
-export function formatDateTime(timestamp) {
-  return new Intl.DateTimeFormat("en-US", {
+export function formatDateTime(timestamp, launchpadId) {
+  const lunchapadTimeZoneName = getTimeZoneNameFromLunchSiteId(launchpadId);
+
+  return new Intl.DateTimeFormat("en-GB", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -16,5 +21,13 @@ export function formatDateTime(timestamp) {
     minute: "numeric",
     second: "numeric",
     timeZoneName: "short",
+    timeZone: `${lunchapadTimeZoneName}`,
   }).format(new Date(timestamp));
+}
+
+function getTimeZoneNameFromLunchSiteId(id) {
+  if (id === "ccafs_slc_40" || id === "ksc_lc_39a") return "EST";
+  if (id === "vafb_slc_4e" || id === "vafb_slc_3w") return "PST";
+  if (id === "kwajalein_atoll") return "Pacific/Kwajalein";
+  if (id === "stls") return "CST";
 }
