@@ -25,6 +25,20 @@ export function formatDateTime(timestamp, launchpadId) {
   }).format(new Date(timestamp));
 }
 
+export function formatLocalDateTime(timestamp) {
+  const localUserTime = new Intl.DateTimeFormat("en-GB", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    timeZoneName: "short",
+  }).format(new Date(timestamp));
+
+  return `Your time: ${localUserTime}`;
+}
+
 function getTimeZoneNameFromLunchSiteId(id) {
   if (id === "ccafs_slc_40" || id === "ksc_lc_39a") return "EST";
   if (id === "vafb_slc_4e" || id === "vafb_slc_3w") return "PST";
