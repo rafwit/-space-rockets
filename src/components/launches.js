@@ -111,7 +111,9 @@ export function LaunchItem({ launch }) {
           {launch.mission_name}
         </Box>
         <Flex>
-          <Text fontSize="sm">{formatDate(launch.launch_date_utc)} </Text>
+          <Text fontSize="sm">
+            {formatDate(launch.launch_date_utc, launch.launch_site.site_id)}{" "}
+          </Text>
           <Text color="gray.500" ml="2" fontSize="sm">
             {timeAgo(launch.launch_date_utc)}
           </Text>
