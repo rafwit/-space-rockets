@@ -11,7 +11,7 @@ import {
 
 import { Box, Button, Flex, Text } from "@chakra-ui/core";
 
-export function FavouritesDrawer() {
+export default function FavouritesDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
