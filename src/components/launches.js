@@ -102,7 +102,7 @@ export function LaunchItem({ launch }) {
           >
             {launch.rocket.rocket_name} &bull; {launch.launch_site.site_name}
           </Box>
-          <Box paddingLeft={5} alignSelf="center">
+          <Box paddingLeft={"5.5rem"} alignSelf="center">
             <ModifyFavouritesButton data={launch} />
           </Box>
         </Box>

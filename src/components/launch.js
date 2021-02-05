@@ -54,7 +54,7 @@ export default function Launch() {
 
       <Header launch={launch} />
       <Box m={[1, 2]}>
-        <Box p={[0, 0, 4, 2]}>
+        <Box p={[0, 0, "1rem", "1rem"]}>
           <ModifyFavouritesButton data={launch} />
         </Box>
         <TimeAndLocation launch={launch} />
