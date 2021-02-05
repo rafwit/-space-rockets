@@ -1,9 +1,13 @@
 import { ADD_FAVOURITE, REMOVE_FAVOURITE } from "./actions";
 
-const initialState = {
+export let initialState = {
   favourites_launches: [],
   favourites_launch_pads: [],
 };
+
+const persistedState = localStorage.getItem("reduxStore");
+
+if (persistedState) initialState = JSON.parse(persistedState);
 
 export const favouritesReducer = (state = initialState, action) => {
   switch (action.type) {
