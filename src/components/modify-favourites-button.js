@@ -9,20 +9,28 @@ import { addToFavourites, removeFromFavourites } from "../store/actions";
 export default function ModifyFavouritesButton({ data }) {
   const [color, setColor] = useState("gray.300");
   const dispatch = useDispatch();
-  const favourites = useSelector((store) => store);
+
+  const favourites = useSelector((store) => {
+    return {
+      launches: store.favourites.favourites_launches,
+      launch_pads: store.favourites.favourites_launch_pads,
+    };
+  });
 
   const checkIfIsFavourite = useCallback(
     (data) => {
       const checkForLaunches =
         data &&
-        favourites.launch.filter(
-          (launch) => data && launch.flight_number === data.flight_number
+        favourites.launches.filter(
+          (launch) => launch.flight_number === data.flight_number
         );
+
       const checkForLaunchPads =
         data &&
-        favourites.launch_pad.filter(
-          (launch) => data && launch.flight_number === data.flight_number
+        favourites.launch_pads.filter(
+          (launchPad) => launchPad.site_id === data.site_id
         );
+
       if (
         data &&
         checkForLaunches.length === 1 &&
@@ -31,7 +39,11 @@ export default function ModifyFavouritesButton({ data }) {
         setColor("gray.300");
         return true;
       }
-      if (data && checkForLaunchPads.length === 1) {
+      if (
+        data &&
+        checkForLaunchPads.length === 1 &&
+        checkForLaunchPads[0].site_id === data.site_id
+      ) {
         setColor("gray.300");
         return true;
       }
@@ -39,7 +51,7 @@ export default function ModifyFavouritesButton({ data }) {
       setColor("yellow.300");
       return false;
     },
-    [favourites.launch, favourites.launch_pad]
+    [favourites.launches, favourites.launch_pads]
   );
 
   useEffect(() => {
