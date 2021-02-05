@@ -1,10 +1,9 @@
 import { createStore, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { launchPadReducer, launchReducer } from "./reducers";
+import { favouritesReducer } from "./reducers";
 
-const appReducers = combineReducers({
-  launch: launchReducer,
-  launch_pad: launchPadReducer,
+const appReducer = combineReducers({
+  favourites: favouritesReducer,
 });
 
-export const store = createStore(appReducers, composeWithDevTools());
+export const store = createStore(appReducer, composeWithDevTools());

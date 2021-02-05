@@ -5,19 +5,49 @@ const initialState = {
   favourites_launch_pads: [],
 };
 
-export const launchReducer = (
-  state = initialState.favourites_launches,
-  action
-) => {
+export const favouritesReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_FAVOURITE: {
-      return [...state, action.payload];
+      if (action.payload.flight_number) {
+        return {
+          ...state,
+          favourites_launches: [...state.favourites_launches, action.payload],
+        };
+      }
+
+      if (action.payload.site_id) {
+        return {
+          ...state,
+          favourites_launch_pads: [
+            ...state.favourites_launch_pads,
+            action.payload,
+          ],
+        };
+      }
+      return state;
     }
     case REMOVE_FAVOURITE: {
-      const index = state.indexOf(action.payload);
-      state.splice(index, 1);
-      if (state.length === 0) return [];
-      else return state;
+      if (action.payload.flight_number) {
+        const newFavourtieLaunches = removeFavourite(
+          state.favourites_launches,
+          action.payload
+        );
+        return {
+          ...state,
+          favourites_launches: newFavourtieLaunches,
+        };
+      }
+      if (action.payload.site_id) {
+        const newFavourtieLaunchPads = removeFavourite(
+          state.favourites_launch_pads,
+          action.payload
+        );
+        return {
+          ...state,
+          favourites_launch_pads: newFavourtieLaunchPads,
+        };
+      }
+      return state;
     }
     default: {
       return state;
@@ -25,8 +55,9 @@ export const launchReducer = (
   }
 };
 
-export const launchPadReducer = (
-  state = initialState.favourites_launch_pads
-) => {
-  return state;
-};
+function removeFavourite(array, item) {
+  const index = array.indexOf(item);
+  const newState = array.slice();
+  newState.splice(index, 1);
+  return newState;
+}
