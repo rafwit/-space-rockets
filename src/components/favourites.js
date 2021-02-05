@@ -59,7 +59,7 @@ export default function FavouritesDrawer() {
                     color="#1A202C"
                     float="right"
                     p={2}
-                    m={[2, 0, 0, 2]}
+                    m={[2, 0, 0, 0]}
                     _hover={{ backgroundColor: "#1A202C", color: "#fff" }}
                     _active={{ transform: "scale(0.97)" }}
                     alignSelf="flex-end"
@@ -71,7 +71,7 @@ export default function FavouritesDrawer() {
                     fontSize="md"
                     alignSelf="center"
                   >
-                    Your Favourites
+                    Favourites
                   </Text>
                 </Flex>
               </Box>
