@@ -55,7 +55,7 @@ export default function LaunchPad() {
       <Header launchPad={launchPad} />
       <Box m={[1, 2]}>
         <Box p={[0, 0, "1rem", "1rem"]}>
-          <ModifyFavouritesButton data={launchPad} />
+          <ModifyFavouritesButton data={launchPad} canModify={true} />
         </Box>
         <LocationAndVehicles launchPad={launchPad} />
         <Text color="gray.700" fontSize={["md", null, "lg"]} my="8">
