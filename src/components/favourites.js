@@ -1,13 +1,4 @@
-import React from "react";
-import {
-  Drawer,
-  DrawerBody,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  useDisclosure,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
 
 import {
   Box,
@@ -22,10 +13,10 @@ import {
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { formatDateTime } from "../utils/format-date";
+import { CloseIcon } from "@chakra-ui/icons";
 
-export default function FavouritesDrawer() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
+export default function Favourites() {
+  const [isOpen, setIsOpen] = useState(false);
 
   const favourites = useSelector((store) => {
     return {
@@ -43,127 +34,166 @@ export default function FavouritesDrawer() {
         fontSize="small"
       >
         <Button
-          ref={btnRef}
           as="button"
           aria-label="favourites"
           color="white"
           backgroundColor="none"
-          _hover={{ backgroundColor: "#fff", color: "#1A202C" }}
+          _hover={{ textDecoration: "underline" }}
           _active={{ outline: "none", transform: "scale(0.97)" }}
           _focus={{ outline: "none" }}
-          onClick={onOpen}
+          onClick={() => {
+            setIsOpen(true);
+          }}
         >
           FAVOURITES
         </Button>
       </Text>
 
-      <Drawer
-        placement="right"
-        onClose={onClose}
-        isOpen={isOpen}
-        finalFocusRef={btnRef}
-        size="md"
+      <Box
+        position="fixed"
+        right={0}
+        top={0}
+        transform={isOpen ? "translateX(0)" : "translateX(100%)"}
+        transition={["transform 0.5s ease-in"]}
+        width="35%"
+        height="100vh"
+        backgroundColor="gray.100"
+        zIndex={100}
       >
-        <DrawerOverlay>
-          <DrawerContent>
-            <DrawerHeader>
-              <Box backgroundColor="#fff" width="35%" float="right">
-                <Flex
-                  direction="row-reverse"
-                  justify="space-between"
-                  p={"0.2rem"}
-                  marginBottom={"1rem"}
-                >
-                  <DrawerCloseButton
-                    color="#1A202C"
-                    float="right"
-                    p={1}
-                    _hover={{ backgroundColor: "#1A202C", color: "#fff" }}
-                    _active={{ transform: "scale(0.97)" }}
-                  />
-                  <Text
-                    fontFamily="mono"
-                    letterSpacing="0.5px"
-                    fontWeight="bold"
-                    fontSize="md"
-                    paddingLeft="38%"
-                  >
-                    Favourites
-                  </Text>
+        <Box>
+          <Flex
+            position="relative"
+            p={"0.2rem"}
+            marginBottom={"1rem"}
+            width="100%"
+            direction="column"
+            // backgroundColor="#1A202C"
+          >
+            <Button
+              position="absolute"
+              right={0}
+              backgroundColor="transparent"
+              _hover={{
+                backgroundColor: "transparent",
+                transform: "scale(1.1)",
+              }}
+              _active={{ transform: "scale(0.90)" }}
+              _focus={{ outline: "none" }}
+              onClick={() => setIsOpen(false)}
+              alignSelf="flex-end"
+              color="#1A202C"
+            >
+              <CloseIcon />
+            </Button>
+            <Text
+              pt={"1rem"}
+              fontFamily="mono"
+              letterSpacing="0.5px"
+              fontWeight="bold"
+              fontSize="xl"
+              alignSelf="center"
+              color="#1A202C"
+            >
+              Favourites
+            </Text>
+          </Flex>
+        </Box>
+        <Box>
+          <Flex direction="column" align="flex-end" mb={"2rem"}>
+            <Text
+              fontFamily="mono"
+              letterSpacing="0.5px"
+              fontWeight="bold"
+              fontSize="md"
+              pb={"0.5rem"}
+              alignSelf="flex-end"
+              textAlign="center"
+              width="100%"
+              color="#1A202C"
+            >
+              Launches ({favourites.launches.length})
+            </Text>
+            {favourites.launches.length ? (
+              <Box
+                width="100%"
+                maxHeight="55vh"
+                overflow="scroll"
+                pt={"0.5rem"}
+              >
+                <Flex direction="column" alignContent="center">
+                  {favourites.launches &&
+                    favourites.launches.map((favourite) => (
+                      <FavouriteLaunchItem
+                        favourite={favourite}
+                        key={favourite.flight_number}
+                      />
+                    ))}
                 </Flex>
               </Box>
-            </DrawerHeader>
-            <DrawerBody>
-              <Flex direction="column" align="flex-end" mb={"2rem"}>
-                <Text
-                  fontFamily="mono"
-                  letterSpacing="0.5px"
-                  fontWeight="bold"
-                  fontSize="md"
-                  pb={2}
-                  backgroundColor="#fff"
-                  alignSelf="flex-end"
-                  textAlign="center"
-                  width="35%"
-                >
-                  Launches ({favourites.launches.length})
-                </Text>
-                <Box
-                  backgroundColor="#fff"
-                  width="35%"
-                  height="50vh"
-                  overflow="scroll"
-                >
-                  <Flex direction="column" alignContent="center">
-                    {favourites.launches &&
-                      favourites.launches.map((favourite) => (
-                        <FavouriteLaunchItem
-                          favourite={favourite}
-                          key={favourite.flight_number}
-                        />
-                      ))}
-                  </Flex>
-                </Box>
-
-                <Text
-                  fontFamily="mono"
-                  letterSpacing="0.5px"
-                  fontWeight="bold"
-                  fontSize="md"
-                  p={2}
-                  backgroundColor="#fff"
-                  textAlign="center"
-                  width="35%"
-                >
-                  Launch Pads ({favourites.launch_pads.length})
-                </Text>
-                <Box
-                  backgroundColor="#fff"
-                  width="35%"
-                  height="50vh"
-                  overflow="scroll"
-                >
-                  <Flex direction="column" alignContent="center" mb={"2rem"}>
-                    {favourites.launch_pads &&
-                      favourites.launch_pads.map((favourite) => (
-                        <FavouriteLaunchPadItem
-                          mb={"1rem"}
-                          favourite={favourite}
-                          key={favourite.site_id}
-                        />
-                      ))}
-                  </Flex>
-                </Box>
-              </Flex>
-            </DrawerBody>
-          </DrawerContent>
-        </DrawerOverlay>
-      </Drawer>
+            ) : (
+              <Text
+                p={"1rem"}
+                fontFamily="mono"
+                letterSpacing="0.5px"
+                fontWeight="bold"
+                fontSize="md"
+                alignSelf="center"
+                color="#1A202C"
+              >
+                You have no favourite launches. Star some to see them here.
+              </Text>
+            )}
+            <Text
+              fontFamily="mono"
+              letterSpacing="0.5px"
+              fontWeight="bold"
+              fontSize="md"
+              p={"0.5rem"}
+              textAlign="center"
+              width="100%"
+              color="#1A202C"
+            >
+              Launch Pads ({favourites.launch_pads.length})
+            </Text>
+            {favourites.launch_pads.length ? (
+              <Box
+                width="100%"
+                maxHeight="25vh"
+                overflow="scroll"
+                pt={"0.5rem"}
+              >
+                <Flex direction="column" alignContent="center" mb={"2rem"}>
+                  {favourites.launch_pads &&
+                    favourites.launch_pads.map((favourite) => (
+                      <FavouriteLaunchPadItem
+                        mb={"1rem"}
+                        favourite={favourite}
+                        key={favourite.site_id}
+                      />
+                    ))}
+                </Flex>
+              </Box>
+            ) : (
+              <Text
+                p={"1rem"}
+                fontFamily="mono"
+                letterSpacing="0.5px"
+                fontWeight="bold"
+                fontSize="md"
+                alignSelf="center"
+                color="#1A202C"
+              >
+                You have no favourite launch pads. Star some to see them here.
+              </Text>
+            )}
+          </Flex>
+        </Box>
+      </Box>
     </>
   );
 }
 
-function FavouriteLaunchItem({ favourite }) {
+export function FavouriteLaunchItem({ favourite }) {
   return (
     <>
       <Flex
@@ -176,8 +206,9 @@ function FavouriteLaunchItem({ favourite }) {
         boxShadow="md"
         borderWidth="1px"
         rounded="lg"
-        mb={"1rem"}
+        mb="1rem"
         width="90%"
+        backgroundColor="#fff"
       >
         <Image
           src={
@@ -194,8 +225,9 @@ function FavouriteLaunchItem({ favourite }) {
           <StatNumber
             fontSize="small"
             fontWeight="bold"
-            pt={"1rem"}
-            pb={"0.5rem"}
+            pt="1rem"
+            pb="0.5rem"
+            color="#1A202C"
           >
             {favourite.mission_name}
           </StatNumber>
@@ -234,8 +266,9 @@ export function FavouriteLaunchPadItem({ favourite }) {
         boxShadow="md"
         borderWidth="1px"
         rounded="lg"
-        mb={"1rem"}
-        width={"90%"}
+        mb="1rem"
+        width="90%"
+        backgroundColor="#fff"
       >
         <Box
           height="1rem"
@@ -245,7 +278,13 @@ export function FavouriteLaunchPadItem({ favourite }) {
           bgRepeat="no-repeat"
           width="100%"
         ></Box>
-        <Box fontSize="large" fontWeight="bold" pt={"0.5rem"} pb={"0.5rem"}>
+        <Box
+          fontSize="large"
+          fontWeight="bold"
+          pt="0.5rem"
+          pb="0.5rem"
+          color="#1A202C"
+        >
           {favourite.name}
         </Box>
         <Box
