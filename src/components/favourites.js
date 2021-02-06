@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { formatDateTime } from "../utils/format-date";
 import { CloseIcon } from "@chakra-ui/icons";
+import ModifyFavouritesButton from "./modify-favourites-button";
 
 export default function Favourites() {
   const [isOpen, setIsOpen] = useState(false);
@@ -196,58 +197,68 @@ export default function Favourites() {
 export function FavouriteLaunchItem({ favourite }) {
   return (
     <>
-      <Flex
-        as={Link}
-        to={`/launches/${favourite.flight_number.toString()}`}
-        direction="column"
-        alignItems="center"
-        alignSelf="center"
-        overflow="hidden"
-        boxShadow="md"
-        borderWidth="1px"
-        rounded="lg"
-        mb="1rem"
-        width="90%"
-        backgroundColor="#fff"
-      >
-        <Image
-          src={
-            favourite.links.flickr_images[0]?.replace("_o.jpg", "_z.jpg") ??
-            favourite.links.mission_patch_small
-          }
-          bgSize="cover"
-          objectFit="cover"
-          objectPosition="center"
-          height="15vh"
-          width="100%"
-        />
-        <Stat d="flex" flexDirection="column">
-          <StatNumber
-            fontSize="small"
-            fontWeight="bold"
-            pt="1rem"
-            pb="0.5rem"
-            color="#1A202C"
-          >
-            {favourite.mission_name}
-          </StatNumber>
-        </Stat>
-        <Box
-          color="gray.500"
-          fontWeight="semibold"
-          letterSpacing="wide"
-          fontSize="xs"
-          textTransform="uppercase"
+      <Flex direction="column">
+        <Box alignSelf="flex-end" pr="0.5rem" color="pink">
+          <ModifyFavouritesButton data={favourite} colorActive="red.300" />
+        </Box>
+        <Flex
+          as={Link}
+          to={`/launches/${favourite.flight_number.toString()}`}
+          direction="column"
+          alignItems="center"
+          alignSelf="center"
+          overflow="hidden"
+          boxShadow="md"
+          borderWidth="1px"
+          rounded="lg"
+          mb="1rem"
+          width="90%"
+          backgroundColor="#fff"
         >
-          {favourite.launch_site.site_name} &bull;{" "}
-          {favourite.rocket.rocket_name}
-        </Box>
-        <Box color="gray.500" fontWeight="semibold" fontSize="xs" pb={"0.5rem"}>
-          {formatDateTime(
-            favourite.launch_date_local,
-            favourite.launch_site.site_id
-          )}
-        </Box>
+          <Image
+            src={
+              favourite.links.flickr_images[0]?.replace("_o.jpg", "_z.jpg") ??
+              favourite.links.mission_patch_small
+            }
+            bgSize="cover"
+            objectFit="cover"
+            objectPosition="center"
+            height="15vh"
+            width="100%"
+          />
+          <Stat d="flex" flexDirection="column">
+            <StatNumber
+              fontSize="small"
+              fontWeight="bold"
+              pt="1rem"
+              pb="0.5rem"
+              color="#1A202C"
+            >
+              {favourite.mission_name}
+            </StatNumber>
+          </Stat>
+          <Box
+            color="gray.500"
+            fontWeight="semibold"
+            letterSpacing="wide"
+            fontSize="xs"
+            textTransform="uppercase"
+          >
+            {favourite.launch_site.site_name} &bull;{" "}
+            {favourite.rocket.rocket_name}
+          </Box>
+          <Box
+            color="gray.500"
+            fontWeight="semibold"
+            fontSize="xs"
+            pb={"0.5rem"}
+          >
+            {formatDateTime(
+              favourite.launch_date_local,
+              favourite.launch_site.site_id
+            )}
+          </Box>
+        </Flex>
       </Flex>
     </>
   );
@@ -256,47 +267,52 @@ export function FavouriteLaunchItem({ favourite }) {
 export function FavouriteLaunchPadItem({ favourite }) {
   return (
     <>
-      <Flex
-        as={Link}
-        to={`/launch-pads/${favourite.site_id}`}
-        direction="column"
-        alignSelf="center"
-        alignItems="center"
-        overflow="hidden"
-        boxShadow="md"
-        borderWidth="1px"
-        rounded="lg"
-        mb="1rem"
-        width="90%"
-        backgroundColor="#fff"
-      >
-        <Box
-          height="1rem"
-          background={`linear-gradient(${randomColor()}, ${randomColor()})`}
-          bgPos="center"
-          bgSize="cover"
-          bgRepeat="no-repeat"
-          width="100%"
-        ></Box>
-        <Box
-          fontSize="large"
-          fontWeight="bold"
-          pt="0.5rem"
-          pb="0.5rem"
-          color="#1A202C"
-        >
-          {favourite.name}
+      <Flex direction="column">
+        <Box alignSelf="flex-end" pr="0.5rem" color="pink">
+          <ModifyFavouritesButton data={favourite} colorActive="red.300" />
         </Box>
-        <Box
-          color="gray.500"
-          fontWeight="semibold"
-          letterSpacing="wide"
-          fontSize="xs"
-          textTransform="uppercase"
+        <Flex
+          as={Link}
+          to={`/launch-pads/${favourite.site_id}`}
+          direction="column"
+          alignSelf="center"
+          alignItems="center"
+          overflow="hidden"
+          boxShadow="md"
+          borderWidth="1px"
+          rounded="lg"
+          mb="1rem"
+          width="90%"
+          backgroundColor="#fff"
         >
-          {favourite.attempted_launches} attempted &bull;{" "}
-          {favourite.successful_launches} succeeded
-        </Box>
+          <Box
+            height="1rem"
+            background={`linear-gradient(${randomColor()}, ${randomColor()})`}
+            bgPos="center"
+            bgSize="cover"
+            bgRepeat="no-repeat"
+            width="100%"
+          ></Box>
+          <Box
+            fontSize="large"
+            fontWeight="bold"
+            pt="0.5rem"
+            pb="0.5rem"
+            color="#1A202C"
+          >
+            {favourite.name}
+          </Box>
+          <Box
+            color="gray.500"
+            fontWeight="semibold"
+            letterSpacing="wide"
+            fontSize="xs"
+            textTransform="uppercase"
+          >
+            {favourite.attempted_launches} attempted &bull;{" "}
+            {favourite.successful_launches} succeeded
+          </Box>
+        </Flex>
       </Flex>
     </>
   );
