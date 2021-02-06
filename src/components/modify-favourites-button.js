@@ -6,7 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { addToFavourites, removeFromFavourites } from "../store/actions";
 
-export default function ModifyFavouritesButton({ data }) {
+export default function ModifyFavouritesButton({
+  data,
+  colorActive = "#FFC8D0",
+  canModify = false,
+}) {
   const [color, setColor] = useState("gray.300");
   const dispatch = useDispatch();
 
@@ -36,7 +40,8 @@ export default function ModifyFavouritesButton({ data }) {
         checkForLaunches.length === 1 &&
         checkForLaunches[0].flight_number === data.flight_number
       ) {
-        setColor("gray.300");
+        if (canModify) setColor("gray.300");
+
         return true;
       }
       if (
@@ -44,20 +49,20 @@ export default function ModifyFavouritesButton({ data }) {
         checkForLaunchPads.length === 1 &&
         checkForLaunchPads[0].site_id === data.site_id
       ) {
-        setColor("gray.300");
+        if (canModify) setColor("gray.300");
         return true;
       }
 
-      setColor("yellow.300");
+      setColor(colorActive);
       return false;
     },
-    [favourites.launches, favourites.launch_pads]
+    [favourites.launches, favourites.launch_pads, canModify, colorActive]
   );
 
   useEffect(() => {
-    if (checkIfIsFavourite(data)) setColor("yellow.300");
+    if (checkIfIsFavourite(data)) setColor(colorActive);
     else setColor("gray.300");
-  }, [data, checkIfIsFavourite]);
+  }, [data, checkIfIsFavourite, colorActive]);
 
   return (
     <Flex>
@@ -65,7 +70,9 @@ export default function ModifyFavouritesButton({ data }) {
         onClick={(e) => {
           e.preventDefault();
           if (!checkIfIsFavourite(data)) dispatch(addToFavourites(data));
-          else dispatch(removeFromFavourites(data));
+          else {
+            if (canModify) dispatch(removeFromFavourites(data));
+          }
         }}
         icon={<Icon as={BsFillStarFill} color={color} boxSize={6} />}
       />
