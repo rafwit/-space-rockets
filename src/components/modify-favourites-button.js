@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Icon, IconButton, useToast } from "@chakra-ui/react";
 import { CheckIcon, InfoOutlineIcon, DeleteIcon } from "@chakra-ui/icons";
 import { BsFillStarFill } from "react-icons/bs";
@@ -24,56 +24,22 @@ export default function ModifyFavouritesButton({
     };
   });
 
-  const checkIfIsFavourite = useCallback(
-    (data) => {
-      const checkForLaunches =
-        data &&
-        favourites.launches.filter(
-          (launch) => launch.flight_number === data.flight_number
-        );
-
-      const checkForLaunchPads =
-        data &&
-        favourites.launch_pads.filter(
-          (launchPad) => launchPad.site_id === data.site_id
-        );
-
-      if (
-        data &&
-        checkForLaunches.length === 1 &&
-        checkForLaunches[0].flight_number === data.flight_number
-      ) {
-        if (canModify) setColor("gray.300");
-
-        return true;
-      }
-      if (
-        data &&
-        checkForLaunchPads.length === 1 &&
-        checkForLaunchPads[0].site_id === data.site_id
-      ) {
-        if (canModify) setColor("gray.300");
-        return true;
-      }
-
-      setColor(colorActive);
-      return false;
-    },
-    [favourites.launches, favourites.launch_pads, canModify, colorActive]
-  );
-
   useEffect(() => {
-    if (checkIfIsFavourite(data)) setColor(colorActive);
-    else setColor("gray.300");
-  }, [data, checkIfIsFavourite, colorActive]);
+    if (checkIfItemIsFavourite(data, favourites)) {
+      setColor(colorActive);
+    } else {
+      setColor("gray.300");
+    }
+  }, [data, colorActive, favourites]);
 
   return (
     <Flex>
       <IconButton
         onClick={(e) => {
           e.preventDefault();
-          if (!checkIfIsFavourite(data)) {
+          if (!checkIfItemIsFavourite(data, favourites)) {
             dispatch(addToFavourites(data));
+            setColor(colorActive);
             toast({
               position: "bottom-left",
               duration: 3000,
@@ -85,7 +51,7 @@ export default function ModifyFavouritesButton({
                   p={3}
                   bg="#FFC8D0"
                   d="flex"
-                  alignItems="center"
+                  aligndatas="center"
                 >
                   <CheckIcon /> &nbsp;
                   {data.mission_name
@@ -99,6 +65,7 @@ export default function ModifyFavouritesButton({
           } else {
             if (canModify) {
               dispatch(removeFromFavourites(data));
+              setColor("gray.300");
               toast({
                 position: "bottom-left",
                 duration: 3000,
@@ -111,7 +78,7 @@ export default function ModifyFavouritesButton({
                     p={3}
                     bg="#fc8181"
                     d="flex"
-                    alignItems="center"
+                    aligndatas="center"
                   >
                     <DeleteIcon /> &nbsp;
                     {data.mission_name
@@ -134,11 +101,11 @@ export default function ModifyFavouritesButton({
                     p={3}
                     bg="#6699ff"
                     d="flex"
-                    alignItems="center"
+                    aligndatas="center"
                     flex-wrap="wrap"
                   >
                     <InfoOutlineIcon /> &nbsp; Navigate to details page or
-                    favourites list to remove item
+                    favourites list to remove data
                   </Box>
                 ),
               });
@@ -148,4 +115,27 @@ export default function ModifyFavouritesButton({
       />
     </Flex>
   );
+}
+
+function checkIfItemIsFavourite(data, favourites) {
+  const launches =
+    data &&
+    favourites.launches.filter(
+      (launch) => launch.flight_number === data.flight_number
+    );
+
+  const launchPads =
+    data &&
+    favourites.launch_pads.filter(
+      (launchPad) => launchPad.site_id === data.site_id
+    );
+
+  if (launches[0] && launches[0].flight_number === data.flight_number) {
+    return true;
+  }
+  if (launchPads[0] && launchPads[0]?.site_id === data.site_id) {
+    return true;
+  }
+
+  return false;
 }
