@@ -105,7 +105,7 @@ export default function ModifyFavouritesButton({
                     flex-wrap="wrap"
                   >
                     <InfoOutlineIcon /> &nbsp; Navigate to details page or
-                    favourites list to remove data
+                    favourites list to remove item
                   </Box>
                 ),
               });
