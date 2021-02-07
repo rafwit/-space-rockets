@@ -58,10 +58,15 @@ export const favouritesReducer = (state = initialState, action) => {
     }
   }
 };
+function removeFavourite(array, itemToRemove) {
+  // eslint-disable-next-line array-callback-return
+  return array.filter((element) => {
+    if (element.flight_number) {
+      return element.flight_number !== itemToRemove.flight_number;
+    }
 
-function removeFavourite(array, item) {
-  const index = array.indexOf(item);
-  const newState = array.slice();
-  newState.splice(index, 1);
-  return newState;
+    if (element.site_id) {
+      return element.site_id !== itemToRemove.site_id;
+    }
+  });
 }
