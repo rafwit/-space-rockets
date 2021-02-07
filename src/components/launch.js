@@ -27,7 +27,6 @@ import { useSpaceX } from "../utils/use-space-x";
 import { formatDateTime, formatLocalDateTime } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
-import ModifyFavouritesButton from "./modify-favourites-button";
 
 export default function Launch() {
   let { launchId } = useParams();
@@ -51,12 +50,8 @@ export default function Launch() {
           { label: `#${launch.flight_number}` },
         ]}
       />
-
       <Header launch={launch} />
-      <Box m={[1, 2]}>
-        <Box p={[0, 0, "1rem", "1rem"]}>
-          <ModifyFavouritesButton data={launch} canModify={true} />
-        </Box>
+      <Box m={[3, 6]}>
         <TimeAndLocation launch={launch} />
         <RocketInfo launch={launch} />
         <Text color="gray.700" fontSize={["md", null, "lg"]} my="8">
