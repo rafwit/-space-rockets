@@ -52,6 +52,7 @@ export default function Favourites() {
 
       <Box
         position="fixed"
+        overflow="scroll"
         right={0}
         top={0}
         transform={isOpen ? "translateX(0)" : "translateX(100%)"}
@@ -159,7 +160,7 @@ export default function Favourites() {
             {favourites.launch_pads.length ? (
               <Box
                 width="100%"
-                maxHeight="25vh"
+                maxHeight="70vh"
                 overflow="scroll"
                 pt={"0.5rem"}
               >
@@ -198,10 +199,10 @@ export function FavouriteLaunchItem({ favourite }) {
   return (
     <>
       <Flex direction="column">
-        <Box alignSelf="flex-end" pr="0.5rem" color="pink">
+        <Box alignSelf="flex-end" pr="0.5rem">
           <ModifyFavouritesButton
             data={favourite}
-            colorActive="red.300"
+            colorActive="#fc8181"
             canModify={true}
           />
         </Box>
@@ -272,10 +273,10 @@ export function FavouriteLaunchPadItem({ favourite }) {
   return (
     <>
       <Flex direction="column">
-        <Box alignSelf="flex-end" pr="0.5rem" color="pink">
+        <Box alignSelf="flex-end" pr="0.5rem">
           <ModifyFavouritesButton
             data={favourite}
-            colorActive="red.300"
+            colorActive="#fc8181"
             canModify={true}
           />
         </Box>
