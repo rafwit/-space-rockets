@@ -8,6 +8,7 @@ import { formatDate } from "../utils/format-date";
 import Error from "./error";
 import Breadcrumbs from "./breadcrumbs";
 import LoadMoreButton from "./load-more-button";
+import ModifyFavouritesButton from "./modify-favourites-button";
 
 const PAGE_SIZE = 12;
 
@@ -20,6 +21,8 @@ export default function Launches() {
       sort: "launch_date_utc",
     }
   );
+
+  // eslint-disable-next-line no-console
   console.log(data, error);
   return (
     <div>
@@ -99,8 +102,10 @@ export function LaunchItem({ launch }) {
           >
             {launch.rocket.rocket_name} &bull; {launch.launch_site.site_name}
           </Box>
+          <Box paddingLeft={"5.5rem"} alignSelf="center">
+            <ModifyFavouritesButton data={launch} />
+          </Box>
         </Box>
-
         <Box
           mt="1"
           fontWeight="semibold"
@@ -110,6 +115,7 @@ export function LaunchItem({ launch }) {
         >
           {launch.mission_name}
         </Box>
+
         <Flex>
           <Text fontSize="sm">
             {formatDate(launch.launch_date_utc, launch.launch_site.site_id)}{" "}
