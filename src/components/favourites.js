@@ -52,6 +52,7 @@ export default function Favourites() {
 
       <Box
         position="fixed"
+        overflow="scroll"
         right={0}
         top={0}
         transform={isOpen ? "translateX(0)" : "translateX(100%)"}
@@ -159,7 +160,7 @@ export default function Favourites() {
             {favourites.launch_pads.length ? (
               <Box
                 width="100%"
-                maxHeight="25vh"
+                maxHeight="70vh"
                 overflow="scroll"
                 pt={"0.5rem"}
               >
