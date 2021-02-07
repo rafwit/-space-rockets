@@ -199,7 +199,11 @@ export function FavouriteLaunchItem({ favourite }) {
     <>
       <Flex direction="column">
         <Box alignSelf="flex-end" pr="0.5rem" color="pink">
-          <ModifyFavouritesButton data={favourite} colorActive="red.300" />
+          <ModifyFavouritesButton
+            data={favourite}
+            colorActive="red.300"
+            canModify={true}
+          />
         </Box>
         <Flex
           as={Link}
@@ -269,7 +273,11 @@ export function FavouriteLaunchPadItem({ favourite }) {
     <>
       <Flex direction="column">
         <Box alignSelf="flex-end" pr="0.5rem" color="pink">
-          <ModifyFavouritesButton data={favourite} colorActive="red.300" />
+          <ModifyFavouritesButton
+            data={favourite}
+            colorActive="red.300"
+            canModify={true}
+          />
         </Box>
         <Flex
           as={Link}
