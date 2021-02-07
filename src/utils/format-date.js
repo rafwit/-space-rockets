@@ -45,3 +45,10 @@ function getTimeZoneNameFromLunchSiteId(id) {
   if (id === "kwajalein_atoll") return "Pacific/Kwajalein";
   if (id === "stls") return "CST";
 }
+
+export function getDayMonthYearString(timestamp) {
+  const date = new Date(timestamp);
+  return `${date.getUTCDay() + 1}-${
+    date.getUTCMonth() + 1
+  }-${date.getUTCFullYear()}`;
+}
