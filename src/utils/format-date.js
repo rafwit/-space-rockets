@@ -36,7 +36,7 @@ export function formatLocalDateTime(timestamp) {
     timeZoneName: "short",
   }).format(new Date(timestamp));
 
-  return `Your time: ${localUserTime}`;
+  return `Your timezone: ${localUserTime}`;
 }
 
 function getTimeZoneNameFromLunchSiteId(id) {
