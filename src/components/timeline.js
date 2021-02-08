@@ -21,14 +21,33 @@ export default function Timeline() {
           { label: "History", to: ".." },
         ]}
       />
-      <Flex direction="column" alignItems="center" m={"2rem"}>
-        {items
-          ? items.map((item) => <TimelineElement item={item} key={item.id} />)
-          : null}
-      </Flex>
-      <Flex opacity={0.5} justifyContent="space-around">
-        <RocketUp />
-        <RocketDown />
+      <Flex
+        overflow="hidden"
+        position="relative"
+        direction="column"
+        top={0}
+        bottom={0}
+      >
+        <Flex m={"2rem"} direction="column" alignItems="center">
+          {items
+            ? items.map((item) => <TimelineElement item={item} key={item.id} />)
+            : null}
+        </Flex>
+        <Flex
+          opacity={0.5}
+          direction="row"
+          justifyContent="space-around"
+          // alignItems="stretch"
+          width="100vw"
+          position="absolute"
+          // height="100%"
+          overflow="hidden"
+          top={0}
+          bottom={0}
+        >
+          <RocketUp />
+          <RocketDown />
+        </Flex>
       </Flex>
     </>
   );
@@ -88,7 +107,7 @@ function TimelineElement({ item }) {
           position="absolute"
           maxHeight={"40vh"}
           maxWidth={"27vw"}
-          boxShadow="md"
+          boxShadow="lg"
           rounded="lg"
           backgroundColor="#fff"
           color="#1A202C"
@@ -134,7 +153,7 @@ function TimelineElement({ item }) {
           >
             {item.details}
           </Text>
-          <Link href={item.links.article}>
+          <Link target="_blank" href={item.links.article}>
             <Text
               p={"1rem"}
               fontFamily="mono"
