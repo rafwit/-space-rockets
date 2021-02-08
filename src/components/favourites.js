@@ -73,6 +73,7 @@ export default function Favourites() {
           >
             <Button
               position="absolute"
+              aria-label="close-favourites"
               right={0}
               backgroundColor="transparent"
               _hover={{
@@ -138,7 +139,7 @@ export default function Favourites() {
                 fontFamily="mono"
                 letterSpacing="0.5px"
                 fontWeight="bold"
-                fontSize="md"
+                fontSize="small"
                 alignSelf="center"
                 color="#1A202C"
               >
@@ -181,7 +182,7 @@ export default function Favourites() {
                 fontFamily="mono"
                 letterSpacing="0.5px"
                 fontWeight="bold"
-                fontSize="md"
+                fontSize="small"
                 alignSelf="center"
                 color="#1A202C"
               >

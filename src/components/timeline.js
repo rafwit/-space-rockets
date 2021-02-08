@@ -37,10 +37,8 @@ export default function Timeline() {
           opacity={0.5}
           direction="row"
           justifyContent="space-around"
-          // alignItems="stretch"
           width="100vw"
           position="absolute"
-          // height="100%"
           overflow="hidden"
           top={0}
           bottom={0}
@@ -78,6 +76,7 @@ function TimelineElement({ item }) {
           {getDayMonthYearString(item.event_date_utc)}
         </Text>
         <Button
+          aria-label="timeline-element"
           backgroundColor="#fff"
           color="#1A202C"
           p={"0.5rem"}
@@ -101,12 +100,12 @@ function TimelineElement({ item }) {
 
       {showDetails ? (
         <Flex
-          p={"1rem"}
+          p="1rem"
           overflow="scroll"
           direction="column"
           position="absolute"
-          maxHeight={"40vh"}
-          maxWidth={"27vw"}
+          maxHeight="40vh"
+          maxWidth="35vw"
           boxShadow="lg"
           rounded="lg"
           backgroundColor="#fff"

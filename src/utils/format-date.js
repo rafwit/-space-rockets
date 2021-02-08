@@ -41,7 +41,8 @@ export function formatLocalDateTime(timestamp) {
 
 function getTimeZoneNameFromLunchSiteId(id) {
   if (id === "ccafs_slc_40" || id === "ksc_lc_39a") return "EST";
-  if (id === "vafb_slc_4e" || id === "vafb_slc_3w") return "PST";
+  if (id === "vafb_slc_4e" || id === "vafb_slc_3w")
+    return "America/Los_Angeles";
   if (id === "kwajalein_atoll") return "Pacific/Kwajalein";
   if (id === "stls") return "CST";
 }
