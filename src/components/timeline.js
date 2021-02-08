@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/core";
-import { Link } from "@chakra-ui/react";
+import { Link, useMediaQuery } from "@chakra-ui/react";
 import { CloseIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { useSpaceX } from "../utils/use-space-x";
 import { getDayMonthYearString } from "../utils/format-date";
@@ -53,6 +53,8 @@ export default function Timeline() {
 
 function TimelineElement({ item }) {
   const [showDetails, setShowDetails] = useState(false);
+  const switchTimelineElementsDetailsSize = useMediaQuery("(max-width: 600px)");
+  const switchTimelineTitlesSize = useMediaQuery("(max-width: 450px)");
 
   return (
     <Flex direction="column" alignItems="center">
@@ -65,7 +67,7 @@ function TimelineElement({ item }) {
       ></Box>
       <Flex height="30vh" direction="column">
         <Text
-          p={"1rem"}
+          pt={"1rem"}
           fontFamily="mono"
           letterSpacing="0.2px"
           fontWeight="md"
@@ -83,7 +85,7 @@ function TimelineElement({ item }) {
           fontFamily="mono"
           letterSpacing="0.5px"
           fontWeight="bold"
-          fontSize="small"
+          fontSize={switchTimelineTitlesSize[0] ? "xs" : "md"}
           _hover={{
             backgroundColor: "#1A202C",
             color: "#fff",
@@ -97,7 +99,6 @@ function TimelineElement({ item }) {
           {item.title}
         </Button>
       </Flex>
-
       {showDetails ? (
         <Flex
           p="1rem"
@@ -105,7 +106,7 @@ function TimelineElement({ item }) {
           direction="column"
           position="absolute"
           maxHeight="40vh"
-          maxWidth="35vw"
+          maxWidth={switchTimelineElementsDetailsSize[0] ? "45vw" : "35vw"}
           boxShadow="lg"
           rounded="lg"
           backgroundColor="#fff"
