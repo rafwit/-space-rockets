@@ -60,7 +60,7 @@ export default function Favourites() {
         width="35%"
         height="100vh"
         backgroundColor="gray.100"
-        zIndex={100}
+        zIndex={500}
       >
         <Box>
           <Flex
@@ -75,6 +75,7 @@ export default function Favourites() {
               position="absolute"
               aria-label="close-favourites"
               right={0}
+              pb={"1rem"}
               backgroundColor="transparent"
               _hover={{
                 backgroundColor: "transparent",
