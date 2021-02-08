@@ -36,7 +36,7 @@ export function formatLocalDateTime(timestamp) {
     timeZoneName: "short",
   }).format(new Date(timestamp));
 
-  return `Your time: ${localUserTime}`;
+  return `Your timezone: ${localUserTime}`;
 }
 
 function getTimeZoneNameFromLunchSiteId(id) {
@@ -44,4 +44,11 @@ function getTimeZoneNameFromLunchSiteId(id) {
   if (id === "vafb_slc_4e" || id === "vafb_slc_3w") return "PST";
   if (id === "kwajalein_atoll") return "Pacific/Kwajalein";
   if (id === "stls") return "CST";
+}
+
+export function getDayMonthYearString(timestamp) {
+  const date = new Date(timestamp);
+  return `${date.getUTCDay() + 1}-${
+    date.getUTCMonth() + 1
+  }-${date.getUTCFullYear()}`;
 }
