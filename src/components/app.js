@@ -7,6 +7,8 @@ import Launch from "./launch";
 import Home from "./home";
 import LaunchPads from "./launch-pads";
 import LaunchPad from "./launch-pad";
+import Favourites from "./favourites";
+import Timeline from "./timeline";
 
 export default function App() {
   return (
@@ -18,6 +20,7 @@ export default function App() {
         <Route path="/launches/:launchId" element={<Launch />} />
         <Route path="/launch-pads" element={<LaunchPads />} />
         <Route path="/launch-pads/:launchPadId" element={<LaunchPad />} />
+        <Route path="/history" element={<Timeline />} />
       </Routes>
     </div>
   );
@@ -25,23 +28,26 @@ export default function App() {
 
 function NavBar() {
   return (
-    <Flex
-      as="nav"
-      align="center"
-      justify="space-between"
-      wrap="wrap"
-      padding="6"
-      bg="gray.800"
-      color="white"
-    >
-      <Text
-        fontFamily="mono"
-        letterSpacing="2px"
-        fontWeight="bold"
-        fontSize="lg"
+    <>
+      <Flex
+        as="nav"
+        align="center"
+        justify="space-between"
+        wrap="wrap"
+        padding="6"
+        bg="gray.800"
+        color="white"
       >
-        ¡SPACE·R0CKETS!
-      </Text>
-    </Flex>
+        <Text
+          fontFamily="mono"
+          letterSpacing="2px"
+          fontWeight="bold"
+          fontSize="lg"
+        >
+          ¡SPACE·R0CKETS!
+        </Text>
+        <Favourites />
+      </Flex>
+    </>
   );
 }
