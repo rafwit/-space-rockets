@@ -15,9 +15,11 @@ import { Link } from "react-router-dom";
 import { formatDateTime } from "../utils/format-date";
 import { CloseIcon } from "@chakra-ui/icons";
 import ModifyFavouritesButton from "./modify-favourites-button";
+import { useMediaQuery } from "@chakra-ui/react";
 
 export default function Favourites() {
   const [isOpen, setIsOpen] = useState(false);
+  const switchFavouriteDrawerSize = useMediaQuery("(max-width: 900px)");
 
   const favourites = useSelector((store) => {
     return {
@@ -57,7 +59,7 @@ export default function Favourites() {
         top={0}
         transform={isOpen ? "translateX(0)" : "translateX(100%)"}
         transition={["transform 0.5s ease-in"]}
-        width="35%"
+        width={switchFavouriteDrawerSize[0] ? "65%" : "40%"}
         height="100vh"
         backgroundColor="gray.100"
         zIndex={500}
@@ -198,6 +200,8 @@ export default function Favourites() {
 }
 
 export function FavouriteLaunchItem({ favourite }) {
+  const switchFavouriteItemsSize = useMediaQuery("(max-width: 390px)");
+
   return (
     <>
       <Flex direction="column">
@@ -256,7 +260,7 @@ export function FavouriteLaunchItem({ favourite }) {
           </Box>
           <Box
             color="gray.500"
-            fontWeight="semibold"
+            fontWeight={switchFavouriteItemsSize[0] ? "light" : "semibold"}
             fontSize="xs"
             pb={"0.5rem"}
           >
