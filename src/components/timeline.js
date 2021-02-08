@@ -1,15 +1,15 @@
+import React, { useState } from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/core";
 import { Link } from "@chakra-ui/react";
 import { CloseIcon, ExternalLinkIcon } from "@chakra-ui/icons";
-import React, { useState } from "react";
-import { getDayMonthYearString } from "../utils/format-date";
 import { useSpaceX } from "../utils/use-space-x";
+import { getDayMonthYearString } from "../utils/format-date";
 import Breadcrumbs from "./breadcrumbs";
 import Error from "./error";
+import { RocketUp, RocketDown } from "../styles/timeline-style";
 
 export default function Timeline() {
   const { data: history, error } = useSpaceX(`/history`);
-
   if (error) return <Error />;
   const items = history;
 
@@ -21,11 +21,14 @@ export default function Timeline() {
           { label: "History", to: ".." },
         ]}
       />
-
       <Flex direction="column" alignItems="center" m={"2rem"}>
         {items
           ? items.map((item) => <TimelineElement item={item} key={item.id} />)
           : null}
+      </Flex>
+      <Flex opacity={0.5} justifyContent="space-around">
+        <RocketUp />
+        <RocketDown />
       </Flex>
     </>
   );
@@ -56,20 +59,22 @@ function TimelineElement({ item }) {
           {getDayMonthYearString(item.event_date_utc)}
         </Text>
         <Button
-          backgroundColor="#1A202C"
-          color="#fff"
+          backgroundColor="#fff"
+          color="#1A202C"
           p={"0.5rem"}
           fontFamily="mono"
           letterSpacing="0.5px"
           fontWeight="bold"
-          fontSize="md"
+          fontSize="small"
           _hover={{
-            backgroundColor: "#fff",
-            color: "#1A202C",
+            backgroundColor: "#1A202C",
+            color: "#fff",
           }}
           _focus={{ outline: "none" }}
           _active={{ outline: "none", transform: "scale(0.98)" }}
           onClick={() => setShowDetails(true)}
+          width="auto"
+          zIndex={100}
         >
           {item.title}
         </Button>
@@ -90,7 +95,7 @@ function TimelineElement({ item }) {
           transform={
             item.id % 2 === 0 ? "translate(-30vw, 0)" : "translate(30vw, 0)"
           }
-          zIndex={100}
+          zIndex={150}
         >
           <Button
             position="absolute"
