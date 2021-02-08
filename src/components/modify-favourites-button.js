@@ -35,6 +35,7 @@ export default function ModifyFavouritesButton({
   return (
     <Flex>
       <IconButton
+        aria-label="modify-favourites-button"
         onClick={(e) => {
           e.preventDefault();
           if (!checkIfItemIsFavourite(data, favourites)) {
@@ -51,7 +52,6 @@ export default function ModifyFavouritesButton({
                   p={3}
                   bg="#FFC8D0"
                   d="flex"
-                  aligndatas="center"
                 >
                   <CheckIcon /> &nbsp;
                   {data.mission_name
@@ -78,7 +78,6 @@ export default function ModifyFavouritesButton({
                     p={3}
                     bg="#fc8181"
                     d="flex"
-                    aligndatas="center"
                   >
                     <DeleteIcon /> &nbsp;
                     {data.mission_name
@@ -101,8 +100,6 @@ export default function ModifyFavouritesButton({
                     p={3}
                     bg="#6699ff"
                     d="flex"
-                    aligndatas="center"
-                    flex-wrap="wrap"
                   >
                     <InfoOutlineIcon /> &nbsp; Navigate to details page or
                     favourites list to remove item
