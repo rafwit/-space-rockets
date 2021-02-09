@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import rocket from "../img/rocket.png";
+import rocket from "../assets/rocket.png";
 
 const slideInUp = keyframes`
 0% {
