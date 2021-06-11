@@ -1,5 +1,7 @@
 # ¡Space·Rockets!  - Rafał's solution 🧑🏼‍🚀
 
+I made this app as a part of recrutiument journey with Pleo. It allows you to explore SpaceX history, launches and launchapads information.
+
 #### Table of contents
 
 - **[Intro](#hello-people-of-pleo)**
